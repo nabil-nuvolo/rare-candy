@@ -20,6 +20,15 @@ ngAppControllers.controller('homeController', ['$scope','$http','styleProvider',
 		{'title':'TODAYILEARNED','separator':'-'},
 	];
 
+	$scope.mutateSomething = function() {
+		let result;
+    var count = 0;
+    for (let prop in styleProvider.item)
+        if (Math.random() < 1/++count)
+           result = styleProvider.item[prop];
+		styleProvider.mutate(result);
+	}
+
 	$scope.contentLinks = {};
 	$http({method: 'GET', url: 'https://www.reddit.com/.json'})
 			.success(function(data, status, headers, config) {
@@ -66,7 +75,18 @@ ngAppControllers.factory('styleProvider', [function() {
 	// TODO: Need to better think through making css style properties numeric
 	// 			 Currently exist as strings with "px" and other modifiers
 
+	function mutate(o) {
+		if (o.hasOwnProperty('font-size')) {
+			o['font-size'] = Math.random()*24+'px';
+		}
+		if (o.hasOwnProperty('height')) {
+			let randH = o['height'].split('px')[0]*Math.random()*2;
+			o['height'] = randH+'px';
+		}
+	}
+
 	var styleObj = {
+		'mutate' : mutate,
 		'header': {
 			'border-bottom': '1px solid #5f99cf',
 			'background-color': '#cee3f8'
