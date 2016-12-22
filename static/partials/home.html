@@ -1,0 +1,47 @@
+<div ng-style="styles.bodyStyle">
+
+	<div ng-style="styles.header">
+		<div ng-style="styles.subHead1">
+			<ul ng-style="styles.subHead1LinksContainer">
+				<li ng-style="styles.subHead1Links"
+						 ng-repeat="h in subHead1LinksData">
+						 {{h.title}} {{h.separator}}
+				</li>
+			</ul>
+		</div>
+		<div ng-style="styles.subHead2">
+			<a ng-style="styles.subHead2Logo">
+			</a>
+		</div>
+	</div>
+
+	<div ng-style="styles.mainContent">
+		<div ng-style="styles.item.container">
+			<div ng-repeat="i in contentLinks">
+				<div ng-style="styles.item.number">
+					{{$index+1}}
+				</div>
+				<div ng-style="styles.item.upvotecounter">
+					{{translateScore(i.data.score)}}
+				</div>
+				<div ng-style="styles.item.thumbContainer">
+					<img ng-style="styles.item.thumb"
+							 ng-src="{{retrieveImg(i.data.thumbnail)}}"/>
+				</div>
+				<div ng-style="styles.item.mainContent">
+					<p ng-style="styles.item.mainTitle">
+						{{i.data.title}}
+						<span ng-style="styles.item.mainTitleDomain">
+							{{i.data.domain}}
+						</span>
+					</p>
+					<p ng-style="styles.item.tagline">
+						submitted at {{getDate(i.data.created)}}
+						by {{i.data.author}}
+						to /r/{{i.data.subreddit}}
+					</p>
+				</div>
+			</div>
+	</div>
+
+</div>
